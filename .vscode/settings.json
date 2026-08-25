@@ -1,0 +1,21 @@
+{
+  // Use the uv-managed virtual environment.
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+
+  // --- Testing: run/debug tests from the Testing sidebar (the beaker icon) ---
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestArgs": ["tests"],
+
+  // --- Ruff: highlight problems inline. We deliberately do NOT auto-fix on
+  //     save — read the squiggles and fix them yourself, that's the point. ---
+  "ruff.nativeServer": "on",
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "never",
+      "source.organizeImports.ruff": "never"
+    }
+  }
+}

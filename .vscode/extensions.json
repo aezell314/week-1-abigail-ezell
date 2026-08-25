@@ -1,0 +1,8 @@
+{
+  // VS Code will prompt you to install these when you open the project.
+  "recommendations": [
+    "charliermarsh.ruff", // Ruff: lints + highlights issues inline as you type
+    "ms-python.python", // Python language support + the test runner
+    "ms-python.vscode-pylance" // type checking / IntelliSense
+  ]
+}
