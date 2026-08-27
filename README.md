@@ -207,6 +207,6 @@ they say `skipped` before you've started RustFS and seeded the data.
 
 ### Your notes (fill in on Day 3)
 
-- What does your pipeline produce?
-- One thing that was messier than expected:
-- One thing you'd improve with more time:
+- What does your pipeline produce? The end result of the pipeline is a DuckDB data warehouse with a cleaned orders table and an aggregated customers table showing the total number of orders and total revenue produced by each customer.
+- One thing that was messier than expected: Figuring out how to appropriately instantiate and persist the DuckDB connection. I had initially tried recreating it for each function that requires a DuckDB connection, rather than using the same connection for each one.
+- One thing you'd improve with more time: I'd add more detail to the customer_order_summary table, for example pulling in customer addresses.
