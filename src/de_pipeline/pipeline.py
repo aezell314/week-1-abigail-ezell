@@ -1,8 +1,4 @@
-"""Day 3 — wire the stages into one end-to-end run.
-
-This is the entry point for ``uv run de-pipeline``. By the end of the week it
-should run the whole pipeline — fetch from S3 -> load into DuckDB -> run the
-transforms — printing a short summary so a human can see what happened.
+"""Combines the fetch, load, and transform stages into one end-to-end run.
 """
 
 from __future__ import annotations
@@ -12,8 +8,8 @@ from de_pipeline import fetch, load, transform  # noqa: F401
 
 
 def main() -> None:
-    """Run the full pipeline end to end: fetch the source files, open a DuckDB
-    connection, load the raw tables, run the transforms, and print a summary."""
+    """Runs the full pipeline end to end: fetches the source files, opens a DuckDB
+    connection, loads the raw tables, runs the transforms, and prints a summary."""
 
     print("Fetching raw files...")
     paths = fetch.fetch_all()

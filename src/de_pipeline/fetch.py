@@ -1,12 +1,4 @@
-"""Day 1 — fetch the raw source files from S3 (RustFS).
-
-The two source objects (``orders.csv`` and ``customers.json``) live in the S3
-bucket. Your job is to download them into a local ``data/raw/`` folder so the
-later stages can read them.
-
-``config.py`` is provided for you. It gives you ``get_s3_client()`` — a
-ready-to-use boto3 S3 client already pointed at the local store — and
-``settings`` (bucket name + the two object keys). You write everything else.
+"""Fetches the raw source files from S3 (RustFS).
 
 Docs:
   - boto3 S3 client:     https://docs.aws.amazon.com/boto3/latest/reference/services/s3.html
@@ -24,9 +16,8 @@ RAW_DIR = Path("data/raw")
 
 
 def fetch_object(key: str, dest_dir: Path = RAW_DIR) -> Path:
-    """Download the object ``key`` from the bucket into ``dest_dir``, and return
+    """Downloads the object ``key`` from the bucket into ``dest_dir``, and returns
     the local path it was written to."""
-
     client = get_s3_client()
     filename = dest_dir / key
     client.download_file(Bucket=settings.bucket,
@@ -36,11 +27,9 @@ def fetch_object(key: str, dest_dir: Path = RAW_DIR) -> Path:
 
 
 def fetch_all(dest_dir: Path = RAW_DIR) -> dict[str, Path]:
-    """Download both source files and return a mapping of name -> local path:
+    """Downloads both source files and returns a mapping of name -> local path:
     ``{"orders": <path>, "customers": <path>}``.
-
-    (The object keys to download are ``settings.orders_key`` and
-    ``settings.customers_key``.)"""
+    """
     return {'orders':fetch_object(key=settings.orders_key),
             'customers':fetch_object(key=settings.customers_key)}
 

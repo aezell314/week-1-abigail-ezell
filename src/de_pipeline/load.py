@@ -1,12 +1,9 @@
-"""Day 2 — load the raw files into DuckDB.
+"""Loads the raw files into DuckDB.
 
-Open a DuckDB database (one file the whole pipeline shares) and load each local
+Opens a DuckDB database (one file the whole pipeline shares) and loads each local
 raw file into its own table:
     data/raw/orders.csv      -> table ``raw_orders``
     data/raw/customers.json  -> table ``raw_customers``
-
-ETL vs. ELT: right now you're landing the data *as-is* (Extract, Load). The
-reshaping happens later in transform.py (Transform) — that's the "EL" of ELT.
 
 Docs:
   - DuckDB Python API:   https://duckdb.org/docs/stable/clients/python/overview
@@ -27,13 +24,13 @@ DB_PATH = Path("data/warehouse.duckdb")
 
 
 def connect(db_path: Path = DB_PATH) -> duckdb.DuckDBPyConnection:
-    """Open (creating it if needed) the DuckDB database at ``db_path`` and return
+    """Opens (creating it if needed) the DuckDB database at ``db_path`` and returns
     the connection."""
     return duckdb.connect(str(db_path))
 
 
 def load_orders(con: duckdb.DuckDBPyConnection, raw_dir: Path = RAW_DIR) -> int:
-    """Load ``raw_dir/orders.csv`` into a table named ``raw_orders``. Return the
+    """Loads ``raw_dir/orders.csv`` into a table named ``raw_orders``. Returns the
     number of rows loaded."""
     source_path = str(raw_dir / "orders.csv")
     con.execute(f"""
@@ -44,8 +41,8 @@ def load_orders(con: duckdb.DuckDBPyConnection, raw_dir: Path = RAW_DIR) -> int:
 
 
 def load_customers(con: duckdb.DuckDBPyConnection, raw_dir: Path = RAW_DIR) -> int:
-    """Load ``raw_dir/customers.json`` into a table named ``raw_customers``.
-    Return the number of rows loaded."""
+    """Loads ``raw_dir/customers.json`` into a table named ``raw_customers``.
+    Returns the number of rows loaded."""
     source_path = str(raw_dir / "customers.json")
     con.execute(f"""
         CREATE OR REPLACE TABLE raw_customers AS SELECT * FROM '{source_path}';
@@ -55,7 +52,7 @@ def load_customers(con: duckdb.DuckDBPyConnection, raw_dir: Path = RAW_DIR) -> i
 
 
 def load_all(con: duckdb.DuckDBPyConnection, raw_dir: Path = RAW_DIR) -> dict[str, int]:
-    """Load both files and return ``{table_name: row_count}`` — i.e.
+    """Loads both files and returns ``{table_name: row_count}`` — i.e.
     ``{"raw_orders": ..., "raw_customers": ...}``."""
     return {
         'raw_orders':load_orders(con=con, raw_dir=raw_dir),

@@ -1,7 +1,6 @@
 """Central configuration, read from environment variables (or a local .env).
 
-This module is provided for you — you should not need to change it. It loads
-settings once and exposes them as a single ``settings`` object plus a helper
+Loads settings once and exposes them as a single ``settings`` object plus a helper
 that hands you a ready-to-use S3 client pointed at the local RustFS store.
 """
 
@@ -34,7 +33,7 @@ class Settings:
 
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:
-    """Read settings from the environment once and cache them."""
+    """Reads settings from the environment once and caches them."""
     return Settings(
         endpoint_url=os.getenv("S3_ENDPOINT_URL", "http://localhost:9000"),
         access_key=os.getenv("S3_ACCESS_KEY", "rustfsadmin"),
@@ -47,7 +46,7 @@ def get_settings() -> Settings:
 
 
 def get_s3_client() -> BaseClient:
-    """Return a boto3 S3 client configured for the local RustFS endpoint.
+    """Returns a boto3 S3 client configured for the local RustFS endpoint.
 
     Because RustFS is not real AWS, we must pass the endpoint URL explicitly and
     use "path-style" addressing (bucket in the URL path, not the hostname).
